@@ -97,21 +97,17 @@ public class ChestCommands extends JavaPlugin {
 		}
 
 		if (settings.update_notifications) {
-			new SimpleUpdater(this, 56919).checkForUpdates(new ResponseHandler() {
+			new SimpleUpdater(this, 56919).checkForUpdates(newVersion -> {
+				ChestCommands.newVersion = newVersion;
 
-				@Override
-				public void onUpdateFound(String newVersion) {
-					ChestCommands.newVersion = newVersion;
-
-					if (settings.use_console_colors) {
-						Bukkit.getConsoleSender().sendMessage(CHAT_PREFIX + "Found a new version: " + newVersion + ChatColor.WHITE + " (yours: v" + getDescription().getVersion() + ")");
-						Bukkit.getConsoleSender().sendMessage(CHAT_PREFIX + ChatColor.WHITE + "Download it on Bukkit Dev:");
-						Bukkit.getConsoleSender().sendMessage(CHAT_PREFIX + ChatColor.WHITE + "dev.bukkit.org/bukkit-plugins/chest-commands");
-					} else {
-						getLogger().info("Found a new version available: " + newVersion);
-						getLogger().info("Download it on Bukkit Dev:");
-						getLogger().info("dev.bukkit.org/bukkit-plugins/chest-commands");
-					}
+				if (settings.use_console_colors) {
+					Bukkit.getConsoleSender().sendMessage(CHAT_PREFIX + "Found a new version: " + newVersion + ChatColor.WHITE + " (yours: v" + getDescription().getVersion() + ")");
+					Bukkit.getConsoleSender().sendMessage(CHAT_PREFIX + ChatColor.WHITE + "Download it on Bukkit Dev:");
+					Bukkit.getConsoleSender().sendMessage(CHAT_PREFIX + ChatColor.WHITE + "dev.bukkit.org/bukkit-plugins/chest-commands");
+				} else {
+					getLogger().info("Found a new version available: " + newVersion);
+					getLogger().info("Download it on Bukkit Dev:");
+					getLogger().info("dev.bukkit.org/bukkit-plugins/chest-commands");
 				}
 			});
 		}
