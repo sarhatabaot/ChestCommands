@@ -15,6 +15,8 @@
 package com.gmail.filoghost.chestcommands.util;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,9 +40,6 @@ public final class MaterialsRegistry {
 
 	// Materials that have a "Sign" block state (with 1.13+ compatibility)
 	private static final Collection<Material> SIGN_MATERIALS = getExistingMaterials("SIGN", "SIGN_POST", "WALL_SIGN");
-
-	private MaterialsRegistry() {
-	}
 
 	private static void addMaterialAlias(String name, Material material) {
 		MATERIALS_BY_ALIAS.put(StringUtils.stripChars(name, IGNORE_CHARS).toLowerCase(), material);
@@ -86,6 +85,10 @@ public final class MaterialsRegistry {
 
 	public static boolean isSign(Material material) {
 		return SIGN_MATERIALS.contains(material);
+	}
+
+	public static boolean isSign(Block block){
+		return block.getState() instanceof Sign;
 	}
 
 	public static boolean useNewMaterialNames() {
