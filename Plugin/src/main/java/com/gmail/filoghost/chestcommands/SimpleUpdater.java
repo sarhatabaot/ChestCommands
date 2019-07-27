@@ -15,6 +15,8 @@
 package com.gmail.filoghost.chestcommands;
 
 import com.google.common.primitives.Ints;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.json.simple.JSONArray;
@@ -37,7 +39,7 @@ import java.util.regex.Pattern;
  */
 public final class SimpleUpdater {
 
-	private static Pattern VERSION_PATTERN = Pattern.compile("v?([0-9\\.]+)");
+	private static final Pattern VERSION_PATTERN = Pattern.compile("v?([0-9\\.]+)");
 
 	private Plugin plugin;
 	private int projectId;
@@ -59,45 +61,35 @@ public final class SimpleUpdater {
 	 * @param responseHandler the response handler
 	 */
 	public void checkForUpdates(final ResponseHandler responseHandler) {
-		Thread updaterThread = new Thread(new Runnable() {
+		Thread updaterThread = new Thread(() -> {
 
-			@Override
-			public void run() {
+			try {
+				JSONArray filesArray = (JSONArray) readJson("https://api.curseforge.com/servermods/files?projectIds=" + projectId);
 
-				try {
-					JSONArray filesArray = (JSONArray) readJson("https://api.curseforge.com/servermods/files?projectIds=" + projectId);
-
-					if (filesArray.size() == 0) {
-						// The array cannot be empty, there must be at least one file.
-						// The project ID is not valid or curse returned a wrong response.
-						return;
-					}
-
-					String updateName = (String) ((JSONObject) filesArray.get(filesArray.size() - 1)).get("name");
-					final PluginVersion remoteVersion = new PluginVersion(updateName);
-					PluginVersion localVersion = new PluginVersion(plugin.getDescription().getVersion());
-
-					if (remoteVersion.isNewerThan(localVersion)) {
-						Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-
-							@Override
-							public void run() {
-								responseHandler.onUpdateFound(remoteVersion.toString());
-							}
-						});
-					}
-
-				} catch (IOException e) {
-					plugin.getLogger().warning("Could not contact BukkitDev to check for updates.");
-				} catch (InvalidVersionException e) {
-					plugin.getLogger().warning("Could not check for updates because of a version format error: " + e.getMessage() + ".");
-					plugin.getLogger().warning("Please notify the author of this error.");
-				} catch (Exception e) {
-					e.printStackTrace();
-					plugin.getLogger().warning("Unable to check for updates: unhandled exception.");
+				if (filesArray.isEmpty()) {
+					// The array cannot be empty, there must be at least one file.
+					// The project ID is not valid or curse returned a wrong response.
+					return;
 				}
 
+				String updateName = (String) ((JSONObject) filesArray.get(filesArray.size() - 1)).get("name");
+				final PluginVersion remoteVersion = new PluginVersion(updateName);
+				PluginVersion localVersion = new PluginVersion(plugin.getDescription().getVersion());
+
+				if (remoteVersion.isNewerThan(localVersion)) {
+					Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> responseHandler.onUpdateFound(remoteVersion.toString()));
+				}
+
+			} catch (IOException e) {
+				plugin.getLogger().warning("Could not contact BukkitDev to check for updates.");
+			} catch (InvalidVersionException e) {
+				plugin.getLogger().warning("Could not check for updates because of a version format error: " + e.getMessage() + ".");
+				plugin.getLogger().warning("Please notify the author of this error.");
+			} catch (Exception e) {
+				e.printStackTrace();
+				plugin.getLogger().warning("Unable to check for updates: unhandled exception.");
 			}
+
 		});
 
 		updaterThread.start();
@@ -180,11 +172,7 @@ public final class SimpleUpdater {
 
 			// If we get here, they're the same version, check dev builds.
 			// This version is newer only if it's not a dev build and the other is.
-			if (other.isDevBuild && !this.isDevBuild) {
-				return true;
-			}
-
-			return false;
+			return other.isDevBuild && !this.isDevBuild;
 		}
 
 
@@ -195,26 +183,21 @@ public final class SimpleUpdater {
 
 	}
 
-
 	private static class InvalidVersionException extends Exception {
-
 		private static final long serialVersionUID = 1L;
 
-		public InvalidVersionException(String message) {
+		public InvalidVersionException(final String message) {
 			super(message);
 		}
-
 	}
 
-
 	public interface ResponseHandler {
-
 		/**
 		 * Called when the updater finds a new version.
 		 *
 		 * @param newVersion - the new version
 		 */
-		public void onUpdateFound(final String newVersion);
+		void onUpdateFound(final String newVersion);
 
 	}
 

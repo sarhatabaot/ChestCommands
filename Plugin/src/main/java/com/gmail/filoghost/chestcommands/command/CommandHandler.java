@@ -28,6 +28,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandHandler extends CommandFramework {
+	private static final String NO_PERMISSION = "You don't have permission.";
 
 	public CommandHandler(String label) {
 		super(label);
@@ -46,7 +47,7 @@ public class CommandHandler extends CommandFramework {
 
 
 		if (args[0].equalsIgnoreCase("help")) {
-			CommandValidate.isTrue(sender.hasPermission(Permissions.COMMAND_BASE + "help"), "You don't have permission.");
+			CommandValidate.isTrue(sender.hasPermission(Permissions.COMMAND_BASE + "help"), NO_PERMISSION);
 			sender.sendMessage(ChestCommands.CHAT_PREFIX + " Commands:");
 			sender.sendMessage(ChatColor.WHITE + "/" + label + " reload" + ChatColor.GRAY + " - Reloads the plugin.");
 			sender.sendMessage(ChatColor.WHITE + "/" + label + " list" + ChatColor.GRAY + " - Lists the loaded menus.");
@@ -56,7 +57,7 @@ public class CommandHandler extends CommandFramework {
 
 
 		if (args[0].equalsIgnoreCase("reload")) {
-			CommandValidate.isTrue(sender.hasPermission(Permissions.COMMAND_BASE + "reload"), "You don't have permission.");
+			CommandValidate.isTrue(sender.hasPermission(Permissions.COMMAND_BASE + "reload"), NO_PERMISSION);
 
 			ChestCommands.closeAllMenus();
 
@@ -79,7 +80,7 @@ public class CommandHandler extends CommandFramework {
 
 
 		if (args[0].equalsIgnoreCase("open")) {
-			CommandValidate.isTrue(sender.hasPermission(Permissions.COMMAND_BASE + "open"), "You don't have permission.");
+			CommandValidate.isTrue(sender.hasPermission(Permissions.COMMAND_BASE + "open"), NO_PERMISSION);
 			CommandValidate.minLength(args, 2, "Usage: /" + label + " open <menu> [player]");
 
 			Player target = null;
@@ -124,7 +125,7 @@ public class CommandHandler extends CommandFramework {
 
 
 		if (args[0].equalsIgnoreCase("list")) {
-			CommandValidate.isTrue(sender.hasPermission(Permissions.COMMAND_BASE + "list"), "You don't have permission.");
+			CommandValidate.isTrue(sender.hasPermission(Permissions.COMMAND_BASE + "list"), NO_PERMISSION);
 			sender.sendMessage(ChestCommands.CHAT_PREFIX + " Loaded menus:");
 			for (String file : ChestCommands.getFileNameToMenuMap().keySet()) {
 				sender.sendMessage(ChatColor.GRAY + "- " + ChatColor.WHITE + file);

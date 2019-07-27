@@ -15,16 +15,17 @@
 package com.gmail.filoghost.chestcommands.internal;
 
 import com.gmail.filoghost.chestcommands.util.Validate;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+@Getter
 public class RequiredItem {
-
 	private Material material;
 	private int amount;
 	private short dataValue;
-	private boolean isDurabilityRestrictive = false;
+	private boolean restrictiveDataValue = false;
 
 	public RequiredItem(Material material, int amount) {
 		Validate.notNull(material, "Material cannot be null");
@@ -38,31 +39,15 @@ public class RequiredItem {
 		return new ItemStack(material, amount, dataValue);
 	}
 
-	public Material getMaterial() {
-		return material;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public short getDataValue() {
-		return dataValue;
-	}
-
 	public void setRestrictiveDataValue(short data) {
 		Validate.isTrue(data >= 0, "Data value cannot be negative");
 
 		this.dataValue = data;
-		isDurabilityRestrictive = true;
-	}
-
-	public boolean hasRestrictiveDataValue() {
-		return isDurabilityRestrictive;
+		restrictiveDataValue = true;
 	}
 
 	public boolean isValidDataValue(short data) {
-		if (!isDurabilityRestrictive) return true;
+		if (!restrictiveDataValue) return true;
 		return data == this.dataValue;
 	}
 

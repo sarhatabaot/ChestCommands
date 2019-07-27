@@ -15,14 +15,13 @@
 package com.gmail.filoghost.chestcommands;
 
 public class Permissions {
+    private Permissions() {
+        throw new IllegalStateException("Static Permissions class");
+    }
 
-	public static final String
-
-			UPDATE_NOTIFICATIONS = "chestcommands.update",
-			SEE_ERRORS = "chestcommands.errors",
-			SIGN_CREATE = "chestcommands.sign",
-
-	COMMAND_BASE = "chestcommands.command.",
-			OPEN_MENU_BASE = "chestcommands.open.";
-
+    public static final String UPDATE_NOTIFICATIONS = "chestcommands.update";
+    public static final String SEE_ERRORS = "chestcommands.errors";
+    public static final String SIGN_CREATE = "chestcommands.sign";
+    public static final String COMMAND_BASE = "chestcommands.command.";
+    public static final String OPEN_MENU_BASE = "chestcommands.open.";
 }

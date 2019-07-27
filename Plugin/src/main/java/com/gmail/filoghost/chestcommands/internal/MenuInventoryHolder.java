@@ -16,6 +16,9 @@ package com.gmail.filoghost.chestcommands.internal;
 
 import com.gmail.filoghost.chestcommands.api.IconMenu;
 import com.gmail.filoghost.chestcommands.util.Validate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -23,13 +26,10 @@ import org.bukkit.inventory.InventoryHolder;
 /**
  * This class links an IconMenu with an Inventory, via InventoryHolder.
  */
+@AllArgsConstructor
 public class MenuInventoryHolder implements InventoryHolder {
-
+	@Getter
 	private IconMenu iconMenu;
-
-	public MenuInventoryHolder(IconMenu iconMenu) {
-		this.iconMenu = iconMenu;
-	}
 
 	@Override
 	public Inventory getInventory() {
@@ -40,10 +40,6 @@ public class MenuInventoryHolder implements InventoryHolder {
 		 * that is cancelled by ChestCommands, or using InventoryOpenEvent.
 		 */
 		return Bukkit.createInventory(null, iconMenu.getSize());
-	}
-
-	public IconMenu getIconMenu() {
-		return iconMenu;
 	}
 
 	public void setIconMenu(IconMenu iconMenu) {

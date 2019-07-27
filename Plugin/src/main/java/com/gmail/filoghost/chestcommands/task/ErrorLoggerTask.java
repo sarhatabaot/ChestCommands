@@ -18,6 +18,7 @@ import com.gmail.filoghost.chestcommands.ChestCommands;
 import com.gmail.filoghost.chestcommands.util.ErrorLogger;
 import com.gmail.filoghost.chestcommands.util.StringUtils;
 import com.gmail.filoghost.chestcommands.util.Utils;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 

@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-@SuppressWarnings("deprecation")
 public final class MaterialsRegistry {
 
 	// Material names have been changed in 1.13, when dolphins were added
@@ -33,7 +32,7 @@ public final class MaterialsRegistry {
 	private static final char[] IGNORE_CHARS = {'-', '_', ' '};
 
 	// Default material names are ugly
-	private static final Map<String, Material> MATERIALS_BY_ALIAS = new HashMap<String, Material>();
+	private static final Map<String, Material> MATERIALS_BY_ALIAS = new HashMap<>();
 
 	// Materials that are considered air (with 1.13+ compatibility)
 	private static final Collection<Material> AIR_MATERIALS = getExistingMaterials("AIR", "CAVE_AIR", "VOID_AIR");
@@ -66,7 +65,7 @@ public final class MaterialsRegistry {
 	}
 
 	public static Collection<Material> getExistingMaterials(String... materialEnumNames) {
-		Collection<Material> existingMaterials = new HashSet<Material>();
+		Collection<Material> existingMaterials = new HashSet<>();
 
 		for (String materialEnumName : materialEnumNames) {
 			try {
@@ -83,6 +82,11 @@ public final class MaterialsRegistry {
 		return AIR_MATERIALS.contains(material);
 	}
 
+	/**
+	 * @since {Minecraft v1.14}
+	 * @deprecated as of 1.14 there are multiple types of signs.
+	 */
+	@Deprecated
 	public static boolean isSign(Material material) {
 		return SIGN_MATERIALS.contains(material);
 	}

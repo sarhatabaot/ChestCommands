@@ -15,19 +15,13 @@
 package com.gmail.filoghost.chestcommands.task;
 
 import com.gmail.filoghost.chestcommands.api.Icon;
+import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 
+@AllArgsConstructor
 public class ExecuteCommandsTask implements Runnable {
-
 	private Player player;
 	private Icon icon;
-
-
-	public ExecuteCommandsTask(Player player, Icon icon) {
-		this.player = player;
-		this.icon = icon;
-	}
-
 
 	@Override
 	public void run() {

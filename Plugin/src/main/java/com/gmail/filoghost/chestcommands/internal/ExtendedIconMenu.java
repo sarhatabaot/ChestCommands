@@ -20,6 +20,8 @@ import com.gmail.filoghost.chestcommands.api.IconMenu;
 import com.gmail.filoghost.chestcommands.internal.icon.ExtendedIcon;
 import com.gmail.filoghost.chestcommands.internal.icon.IconCommand;
 import com.gmail.filoghost.chestcommands.util.ItemUtils;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -29,43 +31,21 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
-
+@Getter
 public class ExtendedIconMenu extends IconMenu {
 
 	private String fileName;
 	private String permission;
+	@Setter
 	private List<IconCommand> openActions;
 
+	@Setter
 	private int refreshTicks;
 
 	public ExtendedIconMenu(String title, int rows, String fileName) {
 		super(title, rows);
 		this.fileName = fileName;
 		this.permission = Permissions.OPEN_MENU_BASE + fileName;
-	}
-
-	public List<IconCommand> getOpenActions() {
-		return openActions;
-	}
-
-	public void setOpenActions(List<IconCommand> openAction) {
-		this.openActions = openAction;
-	}
-
-	public String getPermission() {
-		return permission;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public int getRefreshTicks() {
-		return refreshTicks;
-	}
-
-	public void setRefreshTicks(int refreshTicks) {
-		this.refreshTicks = refreshTicks;
 	}
 
 	@Override
@@ -100,7 +80,7 @@ public class ExtendedIconMenu extends IconMenu {
 	public void refresh(Player player, Inventory inventory) {
 		try {
 			for (int i = 0; i < icons.length; i++) {
-				if (icons[i] != null && icons[i] instanceof ExtendedIcon) {
+				if (icons[i] instanceof ExtendedIcon) {
 					ExtendedIcon extIcon = (ExtendedIcon) icons[i];
 
 					if (extIcon.hasViewPermission() || extIcon.hasVariables()) {

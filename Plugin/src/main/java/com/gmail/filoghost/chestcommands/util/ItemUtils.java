@@ -134,7 +134,9 @@ public final class ItemUtils {
 			throw new FormatException("it must be in the format \"red, green, blue\".");
 		}
 
-		int red, green, blue;
+		int red;
+		int green;
+		int blue;
 
 		try {
 			red = Integer.parseInt(split[0]);
@@ -162,7 +164,7 @@ public final class ItemUtils {
 	}
 
 	public static List<Pattern> parseBannerPatternList(List<String> input) throws FormatException {
-		List<Pattern> patterns = new ArrayList<Pattern>();
+		List<Pattern> patterns = new ArrayList<>();
 		for (String str : input) {
 			String[] split = str.split(":");
 			if (split.length != 2) {

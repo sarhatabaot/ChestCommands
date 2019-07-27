@@ -30,7 +30,7 @@ public class CommandsClickHandler implements ClickHandler {
 		this.commands = commands;
 		this.closeOnClick = closeOnClick;
 
-		if (commands != null && commands.size() > 0) {
+		if (commands != null && !commands.isEmpty()) {
 			for (IconCommand command : commands) {
 				if (command instanceof OpenIconCommand) {
 					// Fix GUI closing if KEEP-OPEN is not set, and a command should open another GUI
@@ -42,7 +42,7 @@ public class CommandsClickHandler implements ClickHandler {
 
 	@Override
 	public boolean onClick(Player player) {
-		if (commands != null && commands.size() > 0) {
+		if (commands != null && !commands.isEmpty()) {
 			for (IconCommand command : commands) {
 				command.execute(player);
 			}

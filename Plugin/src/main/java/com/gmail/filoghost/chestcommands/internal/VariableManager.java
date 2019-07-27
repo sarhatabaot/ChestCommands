@@ -14,10 +14,7 @@ public class VariableManager {
 				return true;
 			}
 		}
-		if (PlaceholderAPIBridge.hasValidPlugin() && PlaceholderAPIBridge.hasPlaceholders(message)) {
-			return true;
-		}
-		return false;
+		return PlaceholderAPIBridge.hasValidPlugin() && PlaceholderAPIBridge.hasPlaceholders(message);
 	}
 
 	public static String setVariables(String message, Player executor) {

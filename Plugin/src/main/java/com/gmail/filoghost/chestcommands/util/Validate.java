@@ -17,6 +17,7 @@ package com.gmail.filoghost.chestcommands.util;
 public final class Validate {
 
 	private Validate() {
+		throw new IllegalStateException("Validate class.");
 	}
 
 	public static void notNull(Object object, String error) {

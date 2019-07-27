@@ -46,9 +46,9 @@ public class ItemStackReader {
 					throw new FormatException("invalid amount \"" + splitAmount[1] + "\"");
 				}
 
-				int amount = Integer.parseInt(splitAmount[1]);
-				if (amount <= 0) throw new FormatException("invalid amount \"" + splitAmount[1] + "\"");
-				this.amount = amount;
+				int tempAmount = Integer.parseInt(splitAmount[1]);
+				if (tempAmount <= 0) throw new FormatException("invalid amount \"" + splitAmount[1] + "\"");
+				this.amount = tempAmount;
 
 				// Only keep the first part as input
 				input = splitAmount[0];
@@ -65,24 +65,24 @@ public class ItemStackReader {
 				throw new FormatException("invalid data value \"" + splitByColons[1] + "\"");
 			}
 
-			short dataValue = Short.parseShort(splitByColons[1]);
-			if (dataValue < 0) {
+			short tempDataValue = Short.parseShort(splitByColons[1]);
+			if (tempDataValue < 0) {
 				throw new FormatException("invalid data value \"" + splitByColons[1] + "\"");
 			}
 
 			this.explicitDataValue = true;
-			this.dataValue = dataValue;
+			this.dataValue = tempDataValue;
 
 			// Only keep the first part as input
 			input = splitByColons[0];
 		}
 
-		Material material = MaterialsRegistry.matchMaterial(input);
+		Material tempMaterial = MaterialsRegistry.matchMaterial(input);
 
-		if (material == null || MaterialsRegistry.isAir(material)) {
+		if (tempMaterial == null || MaterialsRegistry.isAir(tempMaterial)) {
 			throw new FormatException("invalid material \"" + input + "\"");
 		}
-		this.material = material;
+		this.material = tempMaterial;
 	}
 
 	public Material getMaterial() {

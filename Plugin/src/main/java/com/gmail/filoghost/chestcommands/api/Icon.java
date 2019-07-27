@@ -17,6 +17,7 @@ package com.gmail.filoghost.chestcommands.api;
 import com.gmail.filoghost.chestcommands.ChestCommands;
 import com.gmail.filoghost.chestcommands.internal.VariableManager;
 import com.gmail.filoghost.chestcommands.util.Utils;
+import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.enchantments.Enchantment;
@@ -34,6 +35,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 
+@Getter
 public class Icon {
 
 	private Material material;
@@ -58,7 +60,7 @@ public class Icon {
 	private ItemStack cachedItem; // When there are no variables, we don't recreate the item
 
 	public Icon() {
-		enchantments = new HashMap<Enchantment, Integer>();
+		enchantments = new HashMap<>();
 		closeOnClick = true;
 		amount = 1;        
 	}
@@ -72,19 +74,11 @@ public class Icon {
 		this.material = material;
 	}
 
-	public Material getMaterial() {
-		return material;
-	}
-
 	public void setAmount(int amount) {
 		if (amount < 1) amount = 1;
 		else if (amount > 127) amount = 127;
 
 		this.amount = amount;
-	}
-
-	public int getAmount() {
-		return amount;
 	}
 
 	public void setDataValue(short dataValue) {
@@ -93,16 +87,8 @@ public class Icon {
 		this.dataValue = dataValue;
 	}
 
-	public short getDataValue() {
-		return dataValue;
-	}
-
 	public void setNBTData(String nbtData) {
 		this.nbtData = nbtData;
-	}
-
-	public String getNBTData() {
-		return nbtData;
 	}
 
 	public void setName(String name) {
@@ -137,11 +123,7 @@ public class Icon {
 	}
 
 	public boolean hasLore() {
-		return lore != null && lore.size() > 0;
-	}
-
-	public List<String> getLore() {
-		return lore;
+		return lore != null && !lore.isEmpty();
 	}
 
 	public void setEnchantments(Map<Enchantment, Integer> enchantments) {
@@ -153,7 +135,7 @@ public class Icon {
 	}
 
 	public Map<Enchantment, Integer> getEnchantments() {
-		return new HashMap<Enchantment, Integer>(enchantments);
+		return new HashMap<>(enchantments);
 	}
 
 	public void addEnchantment(Enchantment ench) {
@@ -172,16 +154,8 @@ public class Icon {
 		enchantments.clear();
 	}
 
-	public Color getColor() {
-		return color;
-	}
-
 	public void setColor(Color color) {
 		this.color = color;
-	}
-
-	public String getSkullOwner() {
-		return skullOwner;
 	}
 
 	public void setSkullOwner(String skullOwner) {
@@ -189,16 +163,8 @@ public class Icon {
 		this.skullOwnerHasVariables = VariableManager.hasVariables(skullOwner);
 	}
 
-	public DyeColor getBannerColor() {
-		return bannerColor;
-	}
-
 	public void setBannerColor(DyeColor bannerColor) {
 		this.bannerColor = bannerColor;
-	}
-
-	public List<Pattern> getBannerPatterns() {
-		return bannerPatterns;
 	}
 
 	public void setBannerPatterns(List<Pattern> bannerPatterns) {
@@ -211,10 +177,6 @@ public class Icon {
 
 	public void setClickHandler(ClickHandler clickHandler) {
 		this.clickHandler = clickHandler;
-	}
-
-	public ClickHandler getClickHandler() {
-		return clickHandler;
 	}
 
 	protected String calculateName(Player pov) {
@@ -272,7 +234,6 @@ public class Icon {
 		return output;
 	}
 
-	@SuppressWarnings("deprecation")
 	public ItemStack createItemstack(Player pov) {
 
 		if (!this.hasVariables() && cachedItem != null) {

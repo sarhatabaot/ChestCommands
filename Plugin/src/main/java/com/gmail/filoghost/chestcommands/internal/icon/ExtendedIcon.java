@@ -142,7 +142,6 @@ public class ExtendedIcon extends Icon {
 		return super.calculateLore(pov);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onClick(Player player) {
 
@@ -182,7 +181,7 @@ public class ExtendedIcon extends Icon {
 					player.sendMessage(ChestCommands.getLang().no_required_item
 							.replace("{material}", MaterialsRegistry.formatMaterial(item.getMaterial()))
 							.replace("{amount}", Integer.toString(item.getAmount()))
-							.replace("{datavalue}", item.hasRestrictiveDataValue() ? Short.toString(item.getDataValue()) : ChestCommands.getLang().any)
+							.replace("{datavalue}", item.isRestrictiveDataValue() ? Short.toString(item.getDataValue()) : ChestCommands.getLang().any)
 					);
 					return closeOnClick;
 				}
