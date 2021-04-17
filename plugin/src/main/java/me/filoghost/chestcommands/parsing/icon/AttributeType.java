@@ -51,9 +51,9 @@ public enum AttributeType {
     BANNER_PATTERNS("BANNER-PATTERNS", ConfigValueType.STRING_LIST, BannerPatternsAttribute::new),
     PRICE("PRICE", ConfigValueType.DOUBLE, PriceAttribute::new),
     EXP_LEVELS("LEVELS", ConfigValueType.INTEGER, ExpLevelsAttribute::new),
-    CLICK_PERMISSION("PERMISSION", ConfigValueType.STRING, ClickPermissionAttribute::new),
+    CLICK_PERMISSION("PERMISSION", ConfigValueType.STRING_LIST, ClickPermissionAttribute::new),
     CLICK_PERMISSION_MESSAGE("PERMISSION-MESSAGE", ConfigValueType.STRING, ClickPermissionMessageAttribute::new),
-    VIEW_PERMISSION("VIEW-PERMISSION", ConfigValueType.STRING, ViewPermissionAttribute::new),
+    VIEW_PERMISSION("VIEW-PERMISSION", ConfigValueType.STRING_LIST, ViewPermissionAttribute::new),
     KEEP_OPEN("KEEP-OPEN", ConfigValueType.BOOLEAN, KeepOpenAttribute::new),
     ACTIONS("ACTIONS", ConfigValueType.STRING_LIST, ActionsAttribute::new),
     ENCHANTMENTS("ENCHANTMENTS", ConfigValueType.STRING_LIST, EnchantmentsAttribute::new),
@@ -72,9 +72,7 @@ public enum AttributeType {
 
     <V> AttributeType(String attributeName, ConfigValueType<V> configValueType, AttributeFactory<V, ?> attributeFactory) {
         this.attributeName = attributeName;
-        this.attributeParser = (ConfigValue configValue, AttributeErrorHandler errorHandler) -> {
-            return attributeFactory.create(configValue.asRequired(configValueType), errorHandler);
-        };
+        this.attributeParser = (ConfigValue configValue, AttributeErrorHandler errorHandler) -> attributeFactory.create(configValue.asRequired(configValueType), errorHandler);
     }
 
     public String getAttributeName() {

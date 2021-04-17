@@ -53,15 +53,16 @@ public class InternalConfigurableIcon extends BaseConfigurableIcon implements Re
         return viewPermission != null && !viewPermission.isEmpty();
     }
 
-    public void setClickPermission(String permission) {
-        this.clickPermission = new IconPermission(permission);
+
+    public void setClickPermission(List<String> permissions) {
+        this.clickPermission = new IconPermission(permissions);
     }
     
     public void setNoClickPermissionMessage(String noClickPermissionMessage) {
         this.noClickPermissionMessage = noClickPermissionMessage;
     }
         
-    public void setViewPermission(String viewPermission) {
+    public void setViewPermission(List<String> viewPermission) {
         this.viewPermission = new IconPermission(viewPermission);
     }
 

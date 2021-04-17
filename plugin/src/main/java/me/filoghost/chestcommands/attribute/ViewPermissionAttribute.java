@@ -7,11 +7,13 @@ package me.filoghost.chestcommands.attribute;
 
 import me.filoghost.chestcommands.icon.InternalConfigurableIcon;
 
+import java.util.List;
+
 public class ViewPermissionAttribute implements IconAttribute {
 
-    private final String viewPermission;
+    private List<String> viewPermission;
 
-    public ViewPermissionAttribute(String viewPermission, AttributeErrorHandler errorHandler) {
+    public ViewPermissionAttribute(List<String> viewPermission, AttributeErrorHandler errorHandler) {
         this.viewPermission = viewPermission;
     }
 

@@ -7,12 +7,19 @@ package me.filoghost.chestcommands.attribute;
 
 import me.filoghost.chestcommands.icon.InternalConfigurableIcon;
 
+import java.util.Collections;
+import java.util.List;
+
 public class ClickPermissionAttribute implements IconAttribute {
 
-    private final String clickPermission;
+    private final List<String> clickPermission;
 
     public ClickPermissionAttribute(String clickPermission, AttributeErrorHandler errorHandler) {
-        this.clickPermission = clickPermission;
+        this.clickPermission = Collections.singletonList(clickPermission);
+    }
+
+    public ClickPermissionAttribute(List<String> clickPermissions, AttributeErrorHandler errorHandler) {
+        this.clickPermission = clickPermissions;
     }
     
     @Override
